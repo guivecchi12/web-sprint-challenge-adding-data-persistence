@@ -38,14 +38,14 @@ router.post('/project', (req, res) => {
     const newProj = req.body;
 
     project.addProj(newProj)
-    .then(proj => {
-        project.getProj(proj)
-            .then( p => res.status(201).json(p) )
-            .catch(() => res.status(500).json({ message: 'Failed to retrieve new project' }))     
-    })
-    .catch(() => {
-      res.status(500).json({ message: 'Failed to create project' });
-    });
+        .then(proj => {
+            project.getProj(proj)
+                .then( p => res.status(201).json(p) )
+                .catch(() => res.status(500).json({ message: 'Failed to retrieve new project' }))     
+        })
+        .catch(() => {
+        res.status(500).json({ message: 'Failed to create project' });
+        });
 });
 
 router.get("/project/:id", (req, res) => {
@@ -67,14 +67,14 @@ router.post('/task', (req, res) => {
     const newTask = req.body;
 
     project.addTask(newTask)
-    .then(task => {
-        project.getTask(task)
-            .then( t => res.status(201).json(t) )
-            .catch(() => res.status(500).json({ message: 'Failed to retrieve new task' }))     
-    })
-    .catch(() => {
-      res.status(500).json({ message: 'Failed to create task' });
-    });
+        .then(task => {
+            project.getTask(task)
+                .then( t => res.status(201).json(t) )
+                .catch(() => res.status(500).json({ message: 'Failed to retrieve new task' }))     
+        })
+        .catch(() => {
+        res.status(500).json({ message: 'Failed to create task' });
+        });
 });
 
 router.get("/task/:id", (req, res) => {
@@ -88,6 +88,22 @@ router.get("/task/:id", (req, res) => {
             }
         })
         .catch(() => res.status(500).json({ message: "Failed to get task" }))
+})
+
+//stretch
+
+router.get("/pr/:id", (req, res) => {
+    const id = req.params.id;
+    project.getProjRes(id)
+        .then(r => {
+            if(r){
+                res.json(r)
+            }
+            else{
+                res.status(404).json({ message: "Could not find resource" })
+            }
+        })
+        .catch(() => res.status(500).json({ message: "Failed to get project" }))
 })
 
 

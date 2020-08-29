@@ -34,7 +34,17 @@ function getTask(id){
         .select("p.name as Project_Name", "p.description as Project_Description", "t.description as Task_Description", "t.notes as Task_Notes")       
 }
 
+// Stretch
+
+function getProjRes(id){
+    return db("project as p")
+        .join("project_resources as pr", "p.id", "pr.project_id")
+        .join("resource as r", "r.id", "pr.resource_id")
+        .where("p.id", id)
+        .select("p.name as Project_name", "r.name as Resource")
+}
+
 
 module.exports = {
-    addRes, getRes, addProj, getProj, addTask, getTask
+    addRes, getRes, addProj, getProj, addTask, getTask, getProjRes
 }
