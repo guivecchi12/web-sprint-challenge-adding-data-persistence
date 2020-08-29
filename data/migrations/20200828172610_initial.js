@@ -26,7 +26,7 @@ exports.up = async function(knex) {
         table.integer("project_id").notNull().references("id").inTable("project")
         table.integer("resource_id").notNull().references("id").inTable("resource")
         table.date("from_date").notNull().defaultTo(knex.raw("current_timestamp"))
-        table.date("to_date")
+        table.date("to_date").defaultTo(null)
         table.primary(["project_id", "resource_id"])
     })
 };
